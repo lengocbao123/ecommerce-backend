@@ -1,0 +1,108 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Category {
+  id: Float!
+  name: String!
+  image: String!
+}
+
+type PageMetaDto {
+  page: Float!
+  limit: Float!
+  total: Float!
+  pageCount: Float!
+  hasPrevious: Boolean!
+  hasNext: Boolean!
+}
+
+type Product {
+  id: Float!
+  name: String!
+  image: String!
+  price: Float!
+  categoryId: Float!
+  category: Category!
+}
+
+type GetProductsResponse {
+  data: [Product!]!
+  meta: PageMetaDto!
+}
+
+type GetProductResponse {
+  id: Float!
+  name: String!
+  image: String!
+  price: Float!
+  categoryId: Float!
+  category: Category!
+  options: [Option!]!
+}
+
+type Option {
+  id: Float!
+  name: String!
+  values: [OptionValue!]!
+}
+
+type OptionValue {
+  id: Float!
+  name: String!
+}
+
+type GetProductVariantResponse {
+  id: Float!
+  productId: Float!
+  price: Float!
+  quantity: Float!
+  image: String!
+  outOfStock: Boolean!
+}
+
+type Banner {
+  id: Float!
+  image: String!
+  title: String!
+  subTitle: String!
+  description: String!
+  url: String!
+  isAvailable: Boolean!
+}
+
+type Query {
+  getCategories: [Category!]!
+  getProducts(input: GetProductsDto!): GetProductsResponse!
+  getProduct(input: GetProductDto!): GetProductResponse!
+  getProductVariant(input: GetProductVariantDto!): GetProductVariantResponse!
+  getBanners: [Banner!]!
+}
+
+input GetProductsDto {
+  categoryIds: [Float!]
+  page: Float = 1
+  limit: Float = 10
+  sortBy: ProductSortBy = CreatedAt
+  sortDiretion: ProductSortDirection = ASC
+}
+
+enum ProductSortBy {
+  Price
+  CreatedAt
+}
+
+enum ProductSortDirection {
+  ASC
+  DESC
+}
+
+input GetProductDto {
+  id: Float!
+}
+
+input GetProductVariantDto {
+  productId: Float!
+  optionIds: [Float!]!
+  valueIds: [Float!]!
+}
